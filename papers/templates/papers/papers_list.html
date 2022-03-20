@@ -1,0 +1,110 @@
+
+{% extends 'layout.html' %}
+
+{% block content %}
+<center>
+<div class="create_new">
+    <a class="btn btn-outline-primary" href="{% url 'papers:create_paper' %}" >إضافة ورقة جديدة</a>
+    <a class="btn btn-outline-primary" href="{% url 'papers:create_supervisor' %}" >إضافة مشرف جديد</a>
+    <a class="btn btn-outline-primary" href="{% url 'papers:create_researcher' %}" >إضافة باحث جديد</a>
+</div>
+</center>
+<div class="papers-table" dir="rtl">
+    
+
+    <table>
+        <tr class="heading" >
+            <td class="title" >العنوان</td>
+            <td class="researcher"> الباحث</td>
+            <td class="supervisor"> المشرف</td>
+            <td class="degree">الدرجة العلمية</td>
+            <td class="date">تاريخ النشر</td>
+            <td class="number">رقم الورقة</td>
+            <td class="links">#</td>
+        </tr>
+{% for paper in papers %}
+
+				<tr class="details">
+					<td class="title"><a href="{% url 'papers:paper_detail' paper.pk %}">{{paper.title}}</a></td>
+					<td class="researcher"><a href="{% url 'papers:researcher_detail' paper.researcher.pk %}">{{paper.researcher}}</a></td>
+                    <td class="supervisor">
+                    {% for papersupervisor in paper.supervisor.all %}
+                    <a href="{% url 'papers:supervisor_detail' papersupervisor.pk %}" >
+					{{papersupervisor}} </a><br>
+                    
+                    {% endfor %}
+                    </td>
+					<td class="degree">{{paper.degree}}</td>
+					<td class="date_of_publishing">{{paper.date_of_publishing}}</td>
+					<td class="number">{{paper.paper_number}}</td>
+					<td class="links">
+                        <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>
+                        <a href="{% url 'papers:update_researcher' paper.researcher.pk %}" >تعديل الباحث</a>
+                        {% for papersupervisor in paper.supervisor.all %}
+                            <a href="{% url 'papers:update_supervisor' papersupervisor.pk %}" >تعديل المشرف</a>
+                        {% endfor %}
+                    </td>
+				</tr>
+            {% endfor %}
+
+{% if is_paginated %}
+
+<br>
+<div class="paper-navegation">
+    <form method="GET">
+        <select name="paginate_by" class="btn btn-outline-info">
+            <option value="none" selected disabled hidden>إختر عدد الأوراق لكل صفحة</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            
+        </select>
+        <select name="orderby" class="btn btn-outline-info">
+            <option value="none" selected disabled hidden>إختر خانة الترتيب</option>
+            <option value="title" >العنوان</option>
+            <option value="researcher">الباحث</option>
+            <option value="degree">الدرجة العلمية</option>
+            <option value="date_of_publishing">تاريخ النشر</option>
+            <option value="paper_number">رقم الورقة</option>
+            
+        </select>
+        <select name="desc_or_asc" class="btn btn-outline-info">
+            <option value="none" selected disabled hidden>إختر الترتيب</option>
+            <option value="" >ASC</option>
+            <option value="-">DESC</option>
+        </select>
+        <input type="submit" value="إختر" class="btn btn-primary" > 
+    </form>
+<br>
+<br>
+    
+
+                
+            </div>
+        </table>
+        <br>
+        {% firstof request.GET.paginate_by "5" as paginate_by %}
+    {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1&paginate_by={{ paginate_by }}&orderby={{orderby}}&desc_or_asc={{desc_or_asc}}">الأولى</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&paginate_by={{ paginate_by }}&orderby={{orderby}}&desc_or_asc={{desc_or_asc}}">السابقة</a>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ num }}&paginate_by={{ paginate_by }}&orderby={{orderby}}&desc_or_asc={{desc_or_asc}}">{{num}}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ num }}&paginate_by={{ paginate_by }}&orderby={{orderby}}&desc_or_asc={{desc_or_asc}}">{{num}}</a>
+        {% endif %}
+    {% endfor %}
+    {%if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}&paginate_by={{ paginate_by }}&orderby={{orderby}}&desc_or_asc={{desc_or_asc}}">التالية</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}&paginate_by={{ paginate_by }}&orderby={{orderby}}&desc_or_asc={{desc_or_asc}}">الأخيرة</a>
+    {% endif %}
+</div>
+{% endif %}
+    </div>
+        
+        
+        
+
+{% endblock %}

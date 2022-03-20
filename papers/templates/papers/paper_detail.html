@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="papers-table" dir="rtl">
+    <table>
+        <tr class="heading" >
+            <td class="title" >العنوان</td>
+            <td class="researcher"> الباحث</td>
+            <td class="supervisor"> المشرف</td>
+            <td class="degree">الدرجة العلمية</td>
+            <td class="date">تاريخ النشر</td>
+            <td class="number">رقم الورقة</td>
+            <td class="links">#</td>
+        </tr>
+
+
+				<tr class="details">
+					<td class="title">{{paper.title}}</td>
+					<td class="researcher"><a href="{% url 'papers:researcher_detail' paper.researcher.pk %}">{{paper.researcher}}</a></td>
+                    <td class="supervisor">
+                    {% for papersupervisor in paper.supervisor.all %}
+                    <a href="{% url 'papers:supervisor_detail' papersupervisor.pk %}" >
+					{{papersupervisor}}</a><br>
+                    
+                    {% endfor %}
+                    </td>
+					<td class="degree">{{paper.degree}}</td>
+					<td class="date_of_publishing">{{paper.date_of_publishing}}</td>
+					<td class="number">{{paper.paper_number}}</td>
+					<td class="links">
+                        <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>\
+                        <a href="{% url 'papers:update_researcher' paper.researcher.pk %}" >تعديل الباحث</a>\
+                        {% for papersupervisor in paper.supervisor.all %}
+                            <a href="{% url 'papers:update_supervisor' papersupervisor.pk %}" >تعديل المشرف</a>\
+                        {% endfor %}
+                        <a href="{% url 'papers:delete_paper' paper.pk %}" >إزالة الورقة</a>
+                    </td>
+				</tr>
+            
+        </table>
+    </div>
+    {% endblock %}

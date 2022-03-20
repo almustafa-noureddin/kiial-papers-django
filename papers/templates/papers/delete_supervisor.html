@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div >
+    <br>
+    <center>
+    <div >
+        <a class="btn btn-outline-info mb-4"  href="{% url 'papers:papers_list' %}">العودة إلى فهرس الأوراق</a>
+    </div>
+</center>
+    <div class="papers-table" dir="rtl">
+        <h4 >هل تريد إزالة هذا المشرف؟</h4>
+        <br>
+        <table>
+            <tr class="heading" >
+                <td class="first_name" >الإسم الأول</td>
+                <td class="second_name"> الإسم الثاني</td>
+                <td class="third_name"> الإسم الثالث</td>
+                <td class="fourth_name">الإسم الرابع</td>
+                <td class="alternative_name">الإسم البديل</td>
+                <td class="title">اللقب</td>
+                
+            </tr>
+    
+    
+                    <tr class="details">
+                        <td class="first_name">{{supervisor.first_name}}</td>
+                        <td class="second_name">{{supervisor.second_name}}</td>
+                        <td class="third_name">{{supervisor.third_name}}</td>
+                        <td class="fourth_name">{{supervisor.fourth_name}}</td>
+                        <td class="alternative_name">{{supervisor.alternative_name}}</td>
+                        <td class="title">{{supervisor.title}}</td>
+                    </tr>
+                
+                </table>
+                <br>
+                <div class="form-group col-sm-4 col-md-3">
+                <form method="post" >
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit" class="btn btn-primary" >تأكيد</button>
+                </form>
+            </div>
+            </div>
+    
+    
+    
+</div>
+{% endblock content %}

@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<center>
+    <div class="create_new">
+        <a class="btn btn-outline-primary" href="{% url 'papers:create_paper' %}" >إضافة ورقة جديدة</a>
+        <a class="btn btn-outline-primary" href="{% url 'papers:create_supervisor' %}" >إضافة مشرف جديد</a>
+        <a class="btn btn-outline-primary" href="{% url 'papers:create_researcher' %}" >إضافة باحث جديد</a>
+    </div>
+    </center>
+<div class="papers-table" dir="rtl">
+    <table>
+        <tr class="heading" >
+            <td class="first_name" >الإسم الأول</td>
+            <td class="second_name"> الإسم الثاني</td>
+            <td class="third_name"> الإسم الثالث</td>
+            <td class="fourth_name">الإسم الرابع</td>
+            <td class="alternative_name">الإسم البديل</td>
+            <td class="links">#</td>
+            
+        </tr>
+{% for researcher in researchers %}
+
+                <tr class="details">
+                    <td class="first_name">{{researcher.first_name}}</td>
+                    <td class="second_name">{{researcher.second_name}}</td>
+                    <td class="third_name">{{researcher.third_name}}</td>
+                    <td class="fourth_name">{{researcher.fourth_name}}</td>
+                    <td class="alternative_name">{{researcher.alternative_name}}</td>
+                    <td class="links">
+                        <a href="{% url 'papers:update_researcher' researcher.pk %}" >تعديل الباحث</a>\
+                        <a href="{% url 'papers:delete_researcher' researcher.pk %}" >إزالة الباحث</a>\
+                        <a href="{% url 'papers:researcher_detail' researcher.pk %}" >تفاصيل الباحث</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            
+
+            {% if is_paginated %}
+            <div class="paper-navegation" dir="rtl">
+            <form method="GET">
+                <select name="paginate_by" class="btn btn-outline-info">
+                    <option value="none" selected disabled hidden>إختر عدد الباحثين لكل صفحة</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    
+                </select>
+                <input type="submit" value="إختر" class="btn btn-primary">
+            </form>
+            <br>
+            <br>
+                
+            
+
+            </table>
+            <br>
+            {% firstof request.GET.paginate_by "10" as paginate_by %}
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info mb-4" href="?page=1&paginate_by={{ paginate_by }}">الأولى</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}&paginate_by={{ paginate_by }}">السابقة</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}&paginate_by={{ paginate_by }}">{{num}}</a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}&paginate_by={{ paginate_by }}">{{num}}</a>
+                    {% endif %}
+                {% endfor %}
+                {%if page_obj.has_next %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}&paginate_by={{ paginate_by }}">التالية</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}&paginate_by={{ paginate_by }}">الأخيرة</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% endblock content %}

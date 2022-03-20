@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<center>
+<div dir="rtl">
+    <br>
+    <a class="btn btn-outline-info mb-4" href="{% url 'papers:papers_list' %}">العودة إلى فهرس الأوراق</a>
+    <div >
+        <h4 >تعديل الورقة</h4>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    العنوان:
+    <div class="form-group col-sm-4 col-md-3">
+    {{ form.title }}
+    </div>
+    الباحث:
+    <div class="form-group col-sm-4 col-md-3">
+    {{ form.researcher }}
+</div>
+المشرف:
+    <div class="form-group col-sm-4 col-md-3">
+    {{ form.supervisor }}
+</div>
+الدرجة العلمية:
+    <div class="form-group col-sm-4 col-md-3">
+    {{ form.degree }}
+</div>
+تاريخ النشر:
+    <div class="form-group col-sm-4 col-md-3">
+    {{ form.date_of_publishing }}
+</div>
+رقم الورقة
+    <div class="form-group col-sm-4 col-md-3">
+    {{ form.paper_number }}
+</div>
+<br>
+    <button type="submit" class="btn btn-primary">تأكيد</button>
+</form>
+<br>
+</div>
+
+</center>
+{% endblock %}

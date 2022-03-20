@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<center>
+    <br>
+    <div dir="rtl">
+        <a class="btn btn-outline-info mb-4"  href="{% url 'papers:papers_list' %}">العودة إلى فهرس الأوراق</a>
+        <div >
+            <h4 >إضافة باحث جديد</h4>
+        </div>
+        <div class="form-group col-sm-4 col-md-3">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        الإسم الأول
+        <div class="form-group col-sm-4 col-md-3">
+            {{ form.first_name }}
+            </div>
+            الإسم الثاني:
+            <div class="form-group col-sm-4 col-md-3">
+            {{ form.second_name }}
+        </div>
+        الإسم الثالث:
+            <div class="form-group col-sm-4 col-md-3">
+            {{ form.third_name }}
+        </div>
+        الإسم الرابع:
+            <div class="form-group col-sm-4 col-md-3">
+            {{ form.fourth_name }}
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">تأكيد</button>
+    </form>
+    <br>
+    </div>
+    </div>
+    </center>
+{% endblock %}

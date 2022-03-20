@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<center>
+    <br>
+<div>
+    <form method="post" >
+        {% csrf_token %}
+        اسم المستخدم
+        <div class="form-group col-sm-4 col-md-3">
+        {{ form.username }}
+        </div>
+        كلمة المرور<br>كلمة المرور يجب ألا تكون شبيه بإسم المستخدم
+        <br>
+        يجب أن تتكون من 8 خانات على الأقل
+        <br>
+        يجب ألا تكون كلها أرقام
+        <br>
+        يجب ألا تكون شائعة الاستخدام
+        <div class="form-group col-sm-4 col-md-3">
+            {{ form.password1 }}
+            </div>
+            تأكيد كلمة المرور
+            <br>
+            أعد كتابة كلمة المرور للتأكيد
+            <div class="form-group col-sm-4 col-md-3">
+                {{ form.password2 }}
+                </div>
+        <button type='submit' class="btn btn-primary">
+            تسجيل
+        </button>
+    </form>
+    <div >
+        <a class="btn btn-link" href="{% url 'login' %}">هل لديك حساب مسبقاً</a>
+    </div>
+</div>
+</center>
+{% endblock content %}

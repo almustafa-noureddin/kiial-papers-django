@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div >
+    <br>
+    <center>
+    <div >
+        <a class="btn btn-outline-info mb-4"  href="{% url 'papers:papers_list' %}">العودة إلى فهرس الأوراق</a>
+    </div>
+</center>
+    <div class="papers-table" dir="rtl">
+        <h4 >هل تريد إزالة هذه الورقة؟</h4>
+        <br>
+        <table>
+            <tr class="heading" >
+                <td class="title" >العنوان</td>
+                <td class="researcher"> الباحث</td>
+                <td class="supervisor"> المشرف</td>
+                <td class="degree">الدرجة العلمية</td>
+                <td class="date">تاريخ النشر</td>
+                <td class="number">رقم الورقة</td>
+                
+            </tr>
+    
+    
+                    <tr class="details">
+                        <td class="title">{{paper.title}}</td>
+                        <td class="researcher">{{paper.researcher}}</td>
+                        <td class="supervisor">
+                        {% for papersupervisor in paper.supervisor.all %}
+                        
+                        {{papersupervisor}} <br>
+                        
+                        {% endfor %}
+                        </td>
+                        <td class="degree">{{paper.degree}}</td>
+                        <td class="date_of_publishing">{{paper.date_of_publishing}}</td>
+                        <td class="number">{{paper.paper_number}}</td>
+                        
+                    </tr>
+                
+                </table>
+                <br>
+                <div class="form-group col-sm-4 col-md-3">
+                <form method="post" >
+                    {% csrf_token %}
+                    {{ form }}
+                    <button type="submit" class="btn btn-primary">تأكيد</button>
+                </form>
+                <br>
+            </div>
+            </div>
+    
+        
+{% endblock content %}

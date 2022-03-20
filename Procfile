@@ -1,0 +1,1 @@
+web: gunicorn kiial_papers.wsgi --log-file -

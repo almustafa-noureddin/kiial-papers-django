@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="papers-table" dir="rtl">
+    <table>
+        <tr class="heading" >
+            <td class="first_name" >الإسم الأول</td>
+            <td class="second_name"> الإسم الثاني</td>
+            <td class="third_name"> الإسم الثالث</td>
+            <td class="fourth_name">الإسم الرابع</td>
+            
+            
+            <td class="links">#</td>
+            
+        </tr>
+
+
+                <tr class="details">
+                    <td class="first_name">{{researcher.first_name}}</td>
+                    <td class="second_name">{{researcher.second_name}}</td>
+                    <td class="third_name">{{researcher.third_name}}</td>
+                    <td class="fourth_name">{{researcher.fourth_name}}</td>
+                    
+                    <td class="links">
+                        <a href="{% url 'papers:update_researcher' researcher.pk %}" >تعديل الباحث</a>/
+                        <a href="{% url 'papers:delete_researcher' researcher.pk %}" >إزالة الباحث</a>
+                    </td>
+                </tr>
+            
+            </table>
+        </div>
+
+        <div class="papers-table" dir="rtl">
+            <table>
+                <tr class="heading" >
+                    <td class="title" >العنوان</td>
+                    <td class="researcher"> الباحث</td>
+                    <td class="supervisor"> المشرف</td>
+                    <td class="degree">الدرجة العلمية</td>
+                    <td class="date">تاريخ النشر</td>
+                    <td class="number">رقم الورقة</td>
+                    <td class="links">#</td>
+                </tr>
+        {% for paper in papers %}
+        
+        {% if paper.researcher == researcher %}
+                        <tr class="details">
+                            <td class="title"><a href="{% url 'papers:paper_detail' paper.pk %}">{{paper.title}}</a></td>
+                            <td class="researcher">{{paper.researcher}}</td>
+                            <td class="supervisor">
+                            {% for papersupervisor in paper.supervisor.all %}
+                            
+                            <a href="{% url 'papers:supervisor_detail' papersupervisor.pk %}" >{{papersupervisor}} </a><br>
+                            
+                            {% endfor %}
+                            </td>
+                            <td class="degree">{{paper.degree}}</td>
+                            <td class="date_of_publishing">{{paper.date_of_publishing}}</td>
+                            <td class="number">{{paper.paper_number}}</td>
+                            <td class="links">
+                                <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>
+                                {% for papersupervisor in paper.supervisor.all %}
+                                <a href="{% url 'papers:update_supervisor' papersupervisor.pk %}" >تعديل المشرف</a>
+                                {% endfor %}
+                        </tr>
+                        {% endif %}
+
+                    
+                    {% endfor %}
+                    
+                </table>
+            </div>
+        
+            {% for paper in papers %}
+            {% for papersupervisor in paper.supervisor.all %}
+            {% if researcher.first_name == papersupervisor.first_name and researcher.second_name == papersupervisor.second_name and researcher.third_name == papersupervisor.third_name and researcher.fourth_name == papersupervisor.fourth_name %}
+        
+        <div class="papers-table" dir="rtl">
+            <h4>من البحوث التي أشرف عليها </h4>
+            <table>
+                <tr class="heading" >
+                    <td class="title" >العنوان</td>
+                    <td class="researcher"> الباحث</td>
+                    <td class="supervisor"> المشرف</td>
+                    <td class="degree">الدرجة العلمية</td>
+                    <td class="date">تاريخ النشر</td>
+                    <td class="number">رقم الورقة</td>
+                    <td class="links">#</td>
+                </tr>
+       
+                        <tr class="details">
+                            <td class="title"><a href="{% url 'papers:paper_detail' paper.pk %}">{{paper.title}}</a></td>
+                            <td class="researcher">{{paper.researcher}}</td>
+                            <td class="supervisor">
+                            {% for papersupervisor2 in paper.supervisor.all %}
+                            
+                            {{papersupervisor2}} <br>
+                            
+                            {% endfor %}
+                            </td>
+                            <td class="degree">{{paper.degree}}</td>
+                            <td class="date_of_publishing">{{paper.date_of_publishing}}</td>
+                            <td class="number">{{paper.paper_number}}</td>
+                            <td class="links">
+                                <a href="{% url 'papers:update_paper' paper.pk %}" >تعديل الورقة</a>
+                                <a href="{% url 'papers:update_researcher' paper.researcher.pk %}" >تعديل الباحث</a>
+                                {% for papersupervisor in paper.supervisor.all %}
+                                    <a href="{% url 'papers:update_supervisor' papersupervisor.pk %}">تعديل المشرف</a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        
+
+                    
+                </table>
+            </div>
+            {% endif %}
+
+                    {% endfor %}
+                    {% endfor %}
+{% endblock content %}
