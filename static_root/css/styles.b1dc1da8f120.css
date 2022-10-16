@@ -1,0 +1,363 @@
+:root {
+  --header-height: 3rem;
+  --font-semi: 600;
+  /*===== Colores =====*/
+  --first-color: #4484ce;
+  --second-color: #d9d9d9;
+  --third-color: #ffffff;
+  --fourth-color: rgb(169, 222, 243);
+  /*===== Fuente y tipografia =====*/
+  --body-font: 'Poppins', sans-serif;
+  --big-font-size: 2rem;
+  --h2-font-size: 1.25rem;
+  --normal-font-size: .938rem;
+  --smaller-font-size: .75rem;
+  /*===== Margenes =====*/
+  --mb-2: 1rem;
+  --mb-4: 2rem;
+  --mb-5: 2.5rem;
+  --mb-6: 3rem;
+  /*===== z index =====*/
+  --z-back: -10;
+  --z-fixed: 100;
+}
+
+/*
+header
+*/
+
+.pre-header {
+  background-color: var(--first-color);
+  height: 60px;
+  padding: 15px 0px;
+}
+
+.pre-header ul li {
+  display: inline-block;
+}
+
+.pre-header ul.info li {
+  margin-right: 45px;
+  color: var(--third-color);
+}
+
+.pre-header ul.info li a {
+  color: var(--third-color);
+  font-size: 14px;
+  transition: all .3s;
+}
+
+.pre-header ul.info li a:hover {
+  color: rgb(169, 222, 243);
+}
+
+.pre-header ul.info li a i {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.pre-header ul.social-media {
+  text-align: right;
+  
+}
+
+.pre-header ul.social-media li {
+  margin-left: 5px;
+}
+
+.pre-header ul.social-media li a {
+  background-color: var(--third-color);
+  color: teal;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 14px;
+  transition: all .3s;
+}
+
+.pre-header ul.social-media li a:hover {
+  background-color: var(--fourth-color)
+}
+
+/* UTILITIES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+ body {
+  font-family: cursive;
+ }
+ a {
+  text-decoration: none;
+ }
+ li {
+  list-style: none;
+ }
+ 
+
+/* 
+---------------------------------------------
+header
+--------------------------------------------- 
+*/
+
+
+
+ /* NAVBAR STYLING STARTS */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: var(--fourth-color);
+  color: grey;
+ }
+ .nav-links a {
+  color: grey;
+  text-decoration: none;
+ }
+ /* LOGO */
+ .logo img{
+  max-height: 60px;
+  
+ }
+ /* NAVBAR MENU */
+ .menu {
+  display: flex;
+  gap: 1em;
+  font-size: 18px;
+ }
+ .menu li:hover {
+  background-color: var(--first-color);
+  border-radius: 5px;
+  transition: 0.3s ease;
+  
+ }
+ .menu li a:hover {
+  color: white;
+ }
+ .menu li {
+  padding: 5px 14px;
+ }
+
+/*RESPONSIVE NAVBAR MENU STARTS*/
+/* CHECKBOX HACK */
+input[type=checkbox]{
+  display: none;
+ } 
+ /*HAMBURGER MENU*/
+ .hamburger {
+  display: none;
+  font-size: 24px;
+  user-select: none;
+ }
+ /* APPLYING MEDIA QUERIES */
+ @media (max-width: 768px) {
+ .menu { 
+  display:none;
+  position: absolute;
+  background-color: var(--fourth-color);
+  right: 0;
+  left: 0;
+  text-align: center;
+  padding: 16px 0;
+ }
+ .menu li:hover {
+  display: inline-block;
+  background-color:var(--first-color);
+  transition: 0.3s ease;
+ }
+ .menu li  {
+  margin-top: 12px;
+  
+ }
+ input[type=checkbox]:checked ~ .menu{
+  display: block;
+  
+ }
+ 
+ .hamburger {
+  display: block;
+ }
+ 
+ .logo {
+  
+  padding-bottom: 10px;
+ }
+ }
+
+.papers-table {
+  max-width: 800px;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  line-height: 24px;
+  color: #000;
+  background-color: var(--third-color);
+}
+
+.papers-table a{
+  color:var(--first-color) ;
+  text-decoration: none;
+}
+.papers-table a:hover{
+  color:var(--first-color) ;
+  text-decoration: underline;
+}
+.create_new a{
+color: var(--first-color);
+text-decoration: none;
+}
+.create_new a:hover{
+  color: white;
+  text-decoration: none;
+  }
+.papers-table table {
+  width: 100%;
+  line-height: inherit;
+  text-align: left;
+}
+
+.papers-table table td {
+  padding: 5px;
+  vertical-align: top;
+}
+
+/*
+===============
+text alignment 
+===============
+*/
+
+.papers-table table tr td {
+  text-align: right;
+}
+
+
+.papers-table table tr.top table td.title {
+  font-size: 45px;
+  line-height: 45px;
+  color: #000;
+  
+}
+
+
+.papers-table table tr.heading td {
+  background: rgb(169, 222, 243);
+  border-bottom: 1px solid #ddd;
+  font-weight: bold;
+  
+}
+/*
+=========================================
+text alignment for django-table2 template
+=========================================
+*/
+
+.papers-table table thead tr th {
+  text-align: right;
+  background-color: var(--fourth-color);
+}
+
+.papers-table table tr.item td {
+  border-bottom: 1px solid #eee;
+}
+
+
+
+.papers-table table tr.total {
+  border-top: 2px solid #eee;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+  .papers-table table tr.top table td {
+      width: 100%;
+      display: block;
+      text-align: center;
+  }
+
+  .papers-table table table td {
+      width: 100%;
+      display: block;
+  }
+}
+
+/** RTL **/
+.papers-table.rtl {
+  direction: rtl;
+}
+
+.papers-table.rtl table {
+  text-align: right;
+}
+
+.papers-table.rtl table tr td:nth-child(2) {
+  text-align: left;
+}
+
+
+
+/*filter-stuff*/
+
+
+.filter-stuff{
+  padding: 100px;
+  
+}
+
+/*
+footer
+*/
+.footer {
+  background-color: var(--first-color);
+  color: var(--third-color);
+  text-align: center;
+  font-weight: var(--font-semi);
+  padding: 2rem 0;
+}
+
+.footer__title {
+  font-size: 2rem;
+  margin-bottom: var(--mb-4);
+  align-content: center;
+}
+.footer__title img{
+color:var(--third-color);
+
+  
+  max-width: 10%;
+  height: auto;
+  margin: 0 var(--mb-2);
+}
+
+.footer__social {
+  margin-bottom: var(--mb-4);
+}
+.footer__to-top {
+  font-size: 1.5rem;
+  color:var(--third-color);
+  margin: 0 var(--mb-2);
+}
+.footer__icon {
+  font-size: 1.5rem;
+  color: var(--third-color);
+  margin: 0 var(--mb-2);
+}
+.footer__icon:hover {
+  background-color: transparent;
+	cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--fourth-color);
+  margin: 0 var(--mb-2);
+}
+
+.footer__copy {
+  font-size: var(--smaller-font-size);
+}
